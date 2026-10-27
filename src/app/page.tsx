@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/hero";
+import { Integrations } from "@/components/sections/integrations";
 import { ScrollAmbient } from "@/components/scroll-ambient";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
       {/* fixed glow behind the page; sections pick their tint through SectionShell */}
       <ScrollAmbient />
       <Hero />
+      <Integrations />
     </main>
   );
 }
