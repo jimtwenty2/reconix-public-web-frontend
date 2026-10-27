@@ -5,6 +5,7 @@ import { Showcase } from "@/components/sections/showcase";
 import { SHOWCASE } from "@/components/showcase-data";
 import { AsciiBanner } from "@/components/ascii-banner";
 import { Workflow } from "@/components/sections/workflow";
+import { Categories } from "@/components/sections/categories";
 import { ScrollAmbient } from "@/components/scroll-ambient";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <Showcase banners={SHOWCASE.map((s) => <AsciiBanner key={s.word} text={s.word} />)} />
       <ProductPreview />
       <Workflow />
+      <Categories />
     </main>
   );
 }
