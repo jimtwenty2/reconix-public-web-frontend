@@ -21,18 +21,9 @@ export type DocGroup = {
   description: string;
   icon: LucideIcon;
   pages: DocPage[];
-  /**
-   * Single-page groups only: the page's DocSection titles, shown as #anchor links on the docs
-   * overview cards in place of sub-pages. Keep in step with the page's headings.
-   */
   sections?: string[];
 };
 
-/**
- * The docs structure, single source of truth for the docs sidebar, the navbar "Docs" and
- * "Guardrails" dropdowns, breadcrumbs, prev/next links and the sitemap. Adding a page = add it
- * here and add its content to src/content/docs/<group>.tsx under the same slug.
- */
 export const DOCS_NAV: DocGroup[] = [
   {
     id: "overview",
