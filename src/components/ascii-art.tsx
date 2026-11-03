@@ -2,22 +2,16 @@ import type { CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 
 export type AsciiArtProps = {
-  /** Pre-rendered rows of the art, one string per line. */
   lines: string[];
-  /** Accessible name. Omit to mark the art decorative (aria-hidden). */
   label?: string;
   tone?: "primary" | "foreground";
-  /** A filler character (e.g. "░") whose runs are rendered dimmed, like unlit pixels. */
   dim?: string;
   className?: string;
 };
 
 const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-/**
- * Presentational ASCII block with no figlet dependency, so client code may use it.
- * Each row is its own <span class="block"> with a `--i` index for staggered CSS animation.
- */
+
 export function AsciiArt({ lines, label, tone = "primary", dim, className }: AsciiArtProps) {
   const a11y = label ? { role: "img" as const, "aria-label": label } : { "aria-hidden": true as const };
   const dimRun = dim ? new RegExp(`(${escapeRegExp(dim)}+)`) : null;

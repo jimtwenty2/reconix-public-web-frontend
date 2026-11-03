@@ -36,7 +36,7 @@ export function Hero() {
         <h1 id="hero-title" className="sr-only">
           Reconix
         </h1>
-        <ReconixWordmark />
+        <ReconixWordmark className="reconix-wordmark--hero" />
 
         <TypedLine
           className="max-w-4xl font-mono text-sm uppercase tracking-[0.14em] text-foreground sm:text-base lg:text-lg"

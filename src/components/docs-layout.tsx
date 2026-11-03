@@ -5,7 +5,6 @@ import { DocsToc } from "@/components/docs-toc";
 import { docNeighbours, findDoc } from "@/lib/docs-nav";
 import { cn } from "@/lib/utils";
 
-/** `Getting started` -> `getting-started`: the anchor id of a DocSection (and its "On this page" entry). */
 export const slugify = (s: string) =>
   s
     .toLowerCase()
@@ -13,10 +12,7 @@ export const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
-/**
- * Docs page frame: grouped sidebar (left), breadcrumb + title + content + prev/next (centre),
- * "On this page" (right, xl). Title, breadcrumb and neighbours all come from DOCS_NAV via `href`.
- */
+
 export function DocsLayout({
   href,
   title,
@@ -24,12 +20,9 @@ export function DocsLayout({
   draft,
   children,
 }: {
-  /** this page's route, as listed in DOCS_NAV */
   href: string;
-  /** defaults to the DOCS_NAV title */
   title?: string;
   lede: string;
-  /** content not written yet: shows the Draft callout above the content */
   draft?: boolean;
   children: React.ReactNode;
 }) {
@@ -138,7 +131,6 @@ export function Code({ children }: { children: string }) {
   );
 }
 
-/** Inline code / file names / env vars. */
 export function Mono({ children }: { children: React.ReactNode }) {
   return <span className="rounded bg-muted px-1.5 py-0.5 font-mono text-[0.85em] text-foreground">{children}</span>;
 }

@@ -152,13 +152,16 @@ h1, h2, h3, h4 {
   margin-block: calc(var(--w) * -0.0993) calc(var(--w) * -0.1021);
 }
 
-/* Hero wordmark: the Figma export (ReconixWordmark). Its gradient, nested outlines and
-   glow all live in the asset, so CSS only sizes it and plays it in -- the 635:128 viewBox
-   keeps the proportion, so width alone drives the size. */
+/* The Figma wordmark export (ReconixWordmark). Its gradient, nested outlines and glow all
+   live in the asset, so CSS only sizes it -- the 635:128 viewBox keeps the proportion, so
+   width alone drives the size. The base rule stays size-free: the nav and footer set their
+   own width, only the hero wants the full-bleed size and the entrance animation. */
 .reconix-wordmark {
   display: block;
-  width: clamp(300px, 86vw, 635px);
   height: auto;
+}
+.reconix-wordmark--hero {
+  width: clamp(300px, 86vw, 635px);
   /* wipes in left -> right, then settles out of the overbright flash */
   animation:
     ascii-boot 760ms ease-out 180ms backwards,

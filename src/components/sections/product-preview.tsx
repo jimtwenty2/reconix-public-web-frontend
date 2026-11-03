@@ -14,11 +14,6 @@ import { ScopeScreen } from "@/components/product-preview/scope-screen";
 
 const icon = { strokeWidth: 1.6, "aria-hidden": true } as const;
 
-/**
- * Dashboard, Findings and Report are real captures of the local web dashboard
- * (reconix-core-backend/apps/web on its sample data), not mocks. `.app-window` gives them the
- * same rounded, bordered, shadowed frame as the other screens, and clips the corners.
- */
 function Shot({ src, height }: { src: string; height: number }) {
   return (
     <div className="app-window">
@@ -35,12 +30,6 @@ function Shot({ src, height }: { src: string; height: number }) {
   );
 }
 
-/**
- * The Execution tab is the Figma frame exported as SVG, served as-is so its paths, type
- * outlines and colours stay exactly as designed. `next/image` refuses SVG without
- * `dangerouslyAllowSVG`, so this is a plain <img>; the file carries its own dark
- * background, so no `.app-window` frame — only the rounded clip.
- */
 function ExecutionShot() {
   return (
     <div className="overflow-hidden rounded-[0.875rem] shadow-[0_30px_80px_-32px_color-mix(in_oklab,var(--primary)_38%,transparent)]">
@@ -58,7 +47,6 @@ function ExecutionShot() {
   );
 }
 
-/** Ordered as an assessment runs: overview first, then scope → run → findings → report. */
 const VIEWS: ProductView[] = [
   {
     id: "dashboard",

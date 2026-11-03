@@ -37,11 +37,6 @@ export type WorkflowStep = {
   note?: string;
 };
 
-/**
- * The seven steps of an assessment, shown by WorkflowStepper. Copy must stay in
- * step with showcase-data.ts and docs/architecture: no claims beyond those.
- * Preview data is illustrative only (example.com / RFC 5737 addresses).
- */
 export const WORKFLOW_STEPS: WorkflowStep[] = [
   {
     id: "request",

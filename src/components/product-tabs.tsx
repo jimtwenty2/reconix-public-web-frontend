@@ -18,14 +18,6 @@ export type ProductView = {
   note?: string;
 };
 
-/**
- * Tabbed product preview: an ARIA tablist of screens above one large window.
- * Same mechanics as WorkflowStepper: roving tabindex (Left/Right/Home/End),
- * panels stacked in one grid cell on lg+ so switching never shifts the layout (below lg
- * only the active panel is laid out, the screens differ too much in height),
- * panels swapped through `.wipe[data-state]`, tabs styled by the `.wf-step` rules.
- * Screens arrive pre-rendered from the server (sections/product-preview.tsx).
- */
 export function ProductTabs({ views }: { views: ProductView[] }) {
   const [selected, setSelected] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
