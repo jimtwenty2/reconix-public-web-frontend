@@ -90,7 +90,10 @@ export function ProductTabs({ views }: { views: ProductView[] }) {
         </div>
       </div>
 
-      <div data-reveal className="grid grid-cols-[minmax(0,1fr)]">
+      {/* items-start: the screens differ a lot in height, and the cell is as tall as the tallest.
+          Top-aligning them keeps the gap under the tabs identical on every tab; centring would
+          push the short ones (the wide Execution frame) down by half the difference. */}
+      <div data-reveal className="grid grid-cols-[minmax(0,1fr)] items-start">
         {views.map((v, i) => {
           const shown = i === selected;
           return (

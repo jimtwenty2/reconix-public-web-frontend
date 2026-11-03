@@ -4,31 +4,49 @@ import { Reveal } from "@/components/reveal";
 import { AsciiBanner } from "@/components/ascii-banner";
 import { SectionShell } from "@/components/section-shell";
 import { ProductTabs, type ProductView } from "@/components/product-tabs";
-import {
-  ExecutionScreen,
-  FindingsScreen,
-  ReportScreen,
-  ScopeScreen,
-} from "@/components/product-preview/screens";
+import { ScopeScreen } from "@/components/product-preview/scope-screen";
 
 const icon = { strokeWidth: 1.6, "aria-hidden": true } as const;
 
 /**
- * The Dashboard tab is a real capture of the local web dashboard's Overview
- * (reconix-core-backend/apps/web on its sample data), not a mock. `.app-window` gives it the
+ * Dashboard, Findings and Report are real captures of the local web dashboard
+ * (reconix-core-backend/apps/web on its sample data), not mocks. `.app-window` gives them the
  * same rounded, bordered, shadowed frame as the other screens, and clips the corners.
  */
-function DashboardShot() {
+function Shot({ src, height }: { src: string; height: number }) {
   return (
     <div className="app-window">
       <Image
-        src="/reconix-dashboard.webp"
+        src={src}
         alt=""
         width={2400}
-        height={1500}
+        height={height}
         sizes="(min-width: 1280px) 1152px, 100vw"
         className="block h-auto w-full"
         priority={false}
+      />
+    </div>
+  );
+}
+
+/**
+ * The Execution tab is the Figma frame exported as SVG, served as-is so its paths, type
+ * outlines and colours stay exactly as designed. `next/image` refuses SVG without
+ * `dangerouslyAllowSVG`, so this is a plain <img>; the file carries its own dark
+ * background, so no `.app-window` frame — only the rounded clip.
+ */
+function ExecutionShot() {
+  return (
+    <div className="overflow-hidden rounded-[0.875rem] shadow-[0_30px_80px_-32px_color-mix(in_oklab,var(--primary)_38%,transparent)]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/execution-state.svg"
+        alt=""
+        width={1404}
+        height={600}
+        loading="lazy"
+        decoding="async"
+        className="block h-auto w-full"
       />
     </div>
   );
@@ -43,14 +61,16 @@ const VIEWS: ProductView[] = [
     icon: <LayoutDashboard {...icon} />,
     caption: "Every run at a glance: findings by severity, progress, tool execution and the latest activity.",
     note: "Local dashboard · sample data",
-    screen: <DashboardShot />,
+    screen: <Shot src="/reconix-dashboard.webp" height={1500} />,
   },
   {
     id: "scope",
     label: "Scope",
     surface: "terminal",
     icon: <SlidersHorizontal {...icon} />,
-    caption: "Targets, exclusions, permitted actions and limits. Nothing runs until you approve the manifest.",
+    caption:
+      "The agent drafts a scope manifest from a template: the target, what it may do and which tools. Nothing runs until you approve it.",
+    note: "Terminal · sample manifest",
     screen: <ScopeScreen />,
   },
   {
@@ -59,30 +79,35 @@ const VIEWS: ProductView[] = [
     surface: "terminal",
     icon: <SquareTerminal {...icon} />,
     caption: "Every action is checked live: LOW runs, excluded targets are blocked, MEDIUM waits for you.",
-    screen: <ExecutionScreen />,
+    note: "Terminal · sample run",
+    screen: <ExecutionShot />,
   },
   {
     id: "findings",
     label: "Findings",
     surface: "viewer",
     icon: <ShieldAlert {...icon} />,
-    caption: "Each finding with its impact, masked evidence and a remediation grounded in CWE and OWASP.",
-    screen: <FindingsScreen />,
+    caption:
+      "Filter by severity, then open a finding for its CWE, description, impact, masked evidence and remediation.",
+    note: "Local dashboard · sample data",
+    screen: <Shot src="/reconix-findings.webp" height={1698} />,
   },
   {
     id: "report",
     label: "Report",
     surface: "viewer",
     icon: <FileText {...icon} />,
-    caption: "Results turned into a structured report: summary, risk, severity distribution and fixes, exported as PDF.",
-    screen: <ReportScreen />,
+    caption:
+      "Findings by severity, targets and top findings by CVSS, combined across runs into one PDF or Word document.",
+    note: "Local dashboard · sample data",
+    screen: <Shot src="/reconix-report.webp" height={1558} />,
   },
 ];
 
 /**
- * "See Reconix in action": the Dashboard tab is a real screenshot of the local web dashboard;
- * the other four are simplified previews of the terminal and viewer, built as React components
- * from the sample run in product-preview/data.ts.
+ * "See Reconix in action": Dashboard, Findings and Report are real screenshots of the local
+ * web dashboard, Execution is the Figma frame as SVG, and Scope is a React recreation of the
+ * TUI's approval step (see product-preview/scope-screen.tsx).
  * The section stays a server component; only the tab switching (ProductTabs) is client code.
  */
 export function ProductPreview() {
