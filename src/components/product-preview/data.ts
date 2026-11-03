@@ -67,9 +67,6 @@ export const LOG: LogLine[] = [
   { t: "10:42:41", kind: "gate", text: "Active web scan · risk MEDIUM · awaiting approval" },
 ];
 
-/** Shorter feed for the dashboard's "Recent activity" card. */
-export const RECENT = [LOG[10], LOG[9], LOG[8], LOG[4]];
-
 export type Finding = {
   id: string;
   title: string;

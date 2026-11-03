@@ -6,7 +6,6 @@ import {
   FINDINGS,
   FINDING_TOTAL,
   LOG,
-  RECENT,
   SCOPE,
   SEVERITY,
   type LogKind,
@@ -22,19 +21,11 @@ import {
 } from "@/components/product-preview/window";
 
 /**
- * The five product screens shown by ProductTabs. Pure markup (server components),
+ * The terminal and viewer screens shown by ProductTabs. Pure markup (server components),
  * all fed by product-preview/data.ts. Decorative copies of the UI: the tab captions
- * carry the meaning for assistive tech.
+ * carry the meaning for assistive tech. The Dashboard tab is not here -- it is a real
+ * screenshot of the local dashboard (sections/product-preview.tsx).
  */
-
-function RunningPill() {
-  return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.12em] text-primary">
-      <span className="size-1.5 rounded-full bg-primary motion-safe:animate-pulse" />
-      {ASSESSMENT.status}
-    </span>
-  );
-}
 
 const KIND: Record<LogKind, { tag: string; tagClass: string; textClass: string }> = {
   info: { tag: "info", tagClass: "text-muted-foreground", textClass: "text-foreground/85" },
@@ -45,69 +36,6 @@ const KIND: Record<LogKind, { tag: string; tagClass: string; textClass: string }
   finding: { tag: "finding", tagClass: "text-danger", textClass: "text-foreground" },
   gate: { tag: "gate", tagClass: "text-accent", textClass: "text-accent" },
 };
-
-/* ------------------------------------------------------------ 1. dashboard */
-
-export function DashboardScreen() {
-  const stats = [
-    { label: "Started", value: ASSESSMENT.started, sub: ASSESSMENT.date },
-    { label: "Duration", value: ASSESSMENT.duration, sub: "of 2 h window" },
-    { label: "Findings", value: String(FINDING_TOTAL), sub: "1 critical" },
-  ];
-  return (
-    <ViewerWindow path={`/assessments/${ASSESSMENT.id}`} active="assessments">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="min-w-0">
-          <FieldLabel>{ASSESSMENT.id} · {ASSESSMENT.template} template</FieldLabel>
-          <p className="mt-1 font-display text-lg font-semibold leading-tight sm:text-xl">{ASSESSMENT.name}</p>
-          <p className="mt-1 font-mono text-xs text-primary">{ASSESSMENT.target}</p>
-        </div>
-        <RunningPill />
-      </div>
-
-      <div className="mt-4 grid grid-cols-2 gap-2.5 lg:grid-cols-4">
-        <div className="rounded-lg border border-primary/30 bg-primary/5 p-3.5">
-          <FieldLabel>Progress</FieldLabel>
-          <p className="mt-1 font-display text-2xl font-semibold text-primary">{ASSESSMENT.progress}%</p>
-          <ProgressBar value={ASSESSMENT.progress} className="mt-2" />
-        </div>
-        {stats.map((s) => (
-          <div key={s.label} className="rounded-lg border border-border bg-background/50 p-3.5">
-            <FieldLabel>{s.label}</FieldLabel>
-            <p className="mt-1 font-display text-2xl font-semibold">{s.value}</p>
-            <p className="text-xs text-muted-foreground">{s.sub}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-2.5 grid gap-2.5 lg:grid-cols-[1fr_1.2fr]">
-        <div className="rounded-lg border border-border bg-background/50 p-3.5">
-          <FieldLabel className="mb-3">Severity summary</FieldLabel>
-          <ul className="mb-4 grid grid-cols-4 gap-2 text-center">
-            {SEVERITY.map((s) => (
-              <li key={s.level}>
-                <p className="font-display text-2xl font-semibold">{s.count}</p>
-                <SeverityBadge level={s.level} className="mt-1 w-full px-1 text-[9px] tracking-[0.06em]" />
-              </li>
-            ))}
-          </ul>
-          <SeverityBar data={SEVERITY} />
-        </div>
-        <div className="rounded-lg border border-border bg-background/50 p-3.5">
-          <FieldLabel className="mb-2">Recent activity</FieldLabel>
-          <ol className="divide-y divide-border/70 font-mono text-[11.5px]">
-            {RECENT.map((l) => (
-              <li key={l.t} className="grid grid-cols-[4.25rem_1fr] gap-2 py-2">
-                <span className="text-muted-foreground">{l.t}</span>
-                <span className={cn("min-w-0", KIND[l.kind].textClass)}>{l.text}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </div>
-    </ViewerWindow>
-  );
-}
 
 /* ---------------------------------------------------------------- 2. scope */
 

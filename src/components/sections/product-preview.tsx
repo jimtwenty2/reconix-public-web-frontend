@@ -1,10 +1,10 @@
+import Image from "next/image";
 import { FileText, LayoutDashboard, ShieldAlert, SlidersHorizontal, SquareTerminal } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { AsciiBanner } from "@/components/ascii-banner";
 import { SectionShell } from "@/components/section-shell";
 import { ProductTabs, type ProductView } from "@/components/product-tabs";
 import {
-  DashboardScreen,
   ExecutionScreen,
   FindingsScreen,
   ReportScreen,
@@ -13,6 +13,27 @@ import {
 
 const icon = { strokeWidth: 1.6, "aria-hidden": true } as const;
 
+/**
+ * The Dashboard tab is a real capture of the local web dashboard's Overview
+ * (reconix-core-backend/apps/web on its sample data), not a mock. `.app-window` gives it the
+ * same rounded, bordered, shadowed frame as the other screens, and clips the corners.
+ */
+function DashboardShot() {
+  return (
+    <div className="app-window">
+      <Image
+        src="/reconix-dashboard.webp"
+        alt=""
+        width={2400}
+        height={1500}
+        sizes="(min-width: 1280px) 1152px, 100vw"
+        className="block h-auto w-full"
+        priority={false}
+      />
+    </div>
+  );
+}
+
 /** Ordered as an assessment runs: overview first, then scope → run → findings → report. */
 const VIEWS: ProductView[] = [
   {
@@ -20,8 +41,9 @@ const VIEWS: ProductView[] = [
     label: "Dashboard",
     surface: "viewer",
     icon: <LayoutDashboard {...icon} />,
-    caption: "One assessment at a glance: target, status, progress, findings by severity and the latest activity.",
-    screen: <DashboardScreen />,
+    caption: "Every run at a glance: findings by severity, progress, tool execution and the latest activity.",
+    note: "Local dashboard · sample data",
+    screen: <DashboardShot />,
   },
   {
     id: "scope",
@@ -58,8 +80,9 @@ const VIEWS: ProductView[] = [
 ];
 
 /**
- * "See Reconix in action": simplified previews of the real terminal and local viewer,
- * built as React components (no screenshots) from the sample run in product-preview/data.ts.
+ * "See Reconix in action": the Dashboard tab is a real screenshot of the local web dashboard;
+ * the other four are simplified previews of the terminal and viewer, built as React components
+ * from the sample run in product-preview/data.ts.
  * The section stays a server component; only the tab switching (ProductTabs) is client code.
  */
 export function ProductPreview() {
