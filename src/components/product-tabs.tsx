@@ -115,7 +115,7 @@ export function ProductTabs({ views }: { views: ProductView[] }) {
               <p id={`${uid}-cap-${v.id}`} className="mt-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
                 <span className="text-sm text-foreground/90 sm:text-base">{v.caption}</span>
                 <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                  {v.note ?? "Simplified preview · sample data"}
+                  {/* {v.note ?? "Simplified preview · sample data"} */}
                 </span>
               </p>
             </div>

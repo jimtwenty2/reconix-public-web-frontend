@@ -1,5 +1,11 @@
 import Image from "next/image";
-import { FileText, LayoutDashboard, ShieldAlert, SlidersHorizontal, SquareTerminal } from "lucide-react";
+import {
+  FileText,
+  LayoutDashboard,
+  ShieldAlert,
+  SlidersHorizontal,
+  SquareTerminal,
+} from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { AsciiBanner } from "@/components/ascii-banner";
 import { SectionShell } from "@/components/section-shell";
@@ -59,8 +65,9 @@ const VIEWS: ProductView[] = [
     label: "Dashboard",
     surface: "viewer",
     icon: <LayoutDashboard {...icon} />,
-    caption: "Every run at a glance: findings by severity, progress, tool execution and the latest activity.",
-    note: "Local dashboard · sample data",
+    caption:
+      "Every run at a glance: findings by severity, progress, tool execution and the latest activity.",
+    // note: "Local dashboard · sample data",
     screen: <Shot src="/reconix-dashboard.webp" height={1500} />,
   },
   {
@@ -78,7 +85,8 @@ const VIEWS: ProductView[] = [
     label: "Execution",
     surface: "terminal",
     icon: <SquareTerminal {...icon} />,
-    caption: "Every action is checked live: LOW runs, excluded targets are blocked, MEDIUM waits for you.",
+    caption:
+      "Every action is checked live: LOW runs, excluded targets are blocked, MEDIUM waits for you.",
     note: "Terminal · sample run",
     screen: <ExecutionShot />,
   },
@@ -89,7 +97,7 @@ const VIEWS: ProductView[] = [
     icon: <ShieldAlert {...icon} />,
     caption:
       "Filter by severity, then open a finding for its CWE, description, impact, masked evidence and remediation.",
-    note: "Local dashboard · sample data",
+    // note: "Local dashboard · sample data",
     screen: <Shot src="/reconix-findings.webp" height={1698} />,
   },
   {
@@ -98,28 +106,38 @@ const VIEWS: ProductView[] = [
     surface: "viewer",
     icon: <FileText {...icon} />,
     caption:
-      "Findings by severity, targets and top findings by CVSS, combined across runs into one PDF or Word document.",
-    note: "Local dashboard · sample data",
+      "Combine assessment results across multiple runs, analyze vulnerabilities, and export comprehensive security reports in PDF, DOCX, or JSON formats.",
+    // note: "Local dashboard · sample data",
     screen: <Shot src="/reconix-report.webp" height={1558} />,
   },
 ];
 
-/**
- * "See Reconix in action": Dashboard, Findings and Report are real screenshots of the local
- * web dashboard, Execution is the Figma frame as SVG, and Scope is a React recreation of the
- * TUI's approval step (see product-preview/scope-screen.tsx).
- * The section stays a server component; only the tab switching (ProductTabs) is client code.
- */
 export function ProductPreview() {
   return (
     <SectionShell id="product" backdrop="glow" tint="primary">
       <Reveal className="mb-10 max-w-3xl space-y-4">
-        <p data-reveal className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-primary">Product tour</p>
-        <div data-reveal><AsciiBanner text="In action" /></div>
-        <h2 data-reveal className="text-3xl font-semibold tracking-tight sm:text-4xl">See Reconix in action.</h2>
-        <p data-reveal className="text-base leading-relaxed text-foreground/90 sm:text-lg">
-          From defining the scope to reading findings and exporting the report, one assessment in the
-          terminal where you approve and the viewer where you review.
+        <p
+          data-reveal
+          className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-primary"
+        >
+          Product tour
+        </p>
+        <div data-reveal>
+          <AsciiBanner text="In action" />
+        </div>
+        <h2
+          data-reveal
+          className="text-3xl font-semibold tracking-tight sm:text-4xl"
+        >
+          See Reconix in action.
+        </h2>
+        <p
+          data-reveal
+          className="text-base leading-relaxed text-foreground/90 sm:text-lg"
+        >
+          From defining the scope to reading findings and exporting the report,
+          one assessment in the terminal where you approve and the viewer where
+          you review.
         </p>
       </Reveal>
       <Reveal stagger={0.12}>
