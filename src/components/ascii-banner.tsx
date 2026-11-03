@@ -5,7 +5,7 @@ type Fonts = figlet.Fonts;
 
 export type AsciiBannerProps = Omit<AsciiArtProps, "lines" | "label"> & {
   text: string;
-  /** Any font shipped in node_modules/figlet/fonts. Sections and the hero use "ANSI Shadow". */
+  /** Any font shipped in node_modules/figlet/fonts. Sections use "ANSI Shadow". */
   font?: Fonts;
   /** true = visual only (aria-hidden); the caller must provide the heading text itself. */
   decorative?: boolean;
