@@ -1,10 +1,11 @@
-import { Code, DocLink, DocSection, Mono } from "@/components/docs-layout";
+import { Code, DocLink, DocSection } from "@/components/docs-layout";
 import { Badge } from "@/components/ui/badge";
 import type { GroupContent } from "@/content/docs/types";
 
 export const configuration: GroupContent = {
   "scope-manifest": {
     lede: "Targets, permitted actions, exclusions and limits, written down and approved.",
+    notice: "Configuration details are subject to change as development progresses.",
     body: (
       <>
         <DocSection title="What it contains">
@@ -46,6 +47,7 @@ limits: 5 req/s · 2h window`}</Code>
   },
   policies: {
     lede: "The Risk Policy Table decides which actions need approval; execution limits cap every run.",
+    notice: "Configuration details are subject to change as development progresses.",
     body: (
       <>
         <DocSection title="Risk Policy Table">
@@ -61,10 +63,7 @@ limits: 5 req/s · 2h window`}</Code>
               <Badge variant="accent">HIGH</Badge> Needs explicit, clear approval.
             </li>
           </ul>
-          <p>
-            Classification uses this fixed table. The AI may suggest a level, but the backend decides. Point{" "}
-            <Mono>RISK_POLICY</Mono> in <Mono>.env</Mono> at the table you want to use.
-          </p>
+          <p>Classification uses this fixed table. The AI may suggest a level, but the backend decides.</p>
         </DocSection>
         <DocSection title="Execution limits">
           <p>

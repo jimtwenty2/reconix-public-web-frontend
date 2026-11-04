@@ -3,13 +3,13 @@ import { DocsLayout, DocSection } from "@/components/docs-layout";
 export const metadata = { title: "Architecture · Reconix" };
 
 const components = [
-  { name: "Terminal (CLI / TUI)", stack: "Python · Typer · Textual · Rich", role: "The primary interface. Starts assessments, edits the scope, approves actions and shows results." },
-  { name: "Backend", stack: "FastAPI", role: "Validates every request against the Scope Manifest, applies the Risk Policy and execution limits, and records approvals and audit events." },
-  { name: "AI Service", stack: "Python · OpenAI-compatible client · Qdrant", role: "Reads requests, drafts scopes, classifies and correlates findings, and explains impact and remediation with retrieved knowledge." },
-  { name: "Tool Service", stack: "Containerized security tools", role: "Runs approved tools from validated inputs, returns normalized results, and masks sensitive output." },
-  { name: "LLM", stack: "vLLM (local) or any OpenAI-compatible endpoint", role: "Called only in steps that need language understanding, with a short context rather than raw tool output." },
-  { name: "Knowledge base", stack: "BGE-M3 embeddings · Qdrant · NVD API", role: "Hybrid search over OWASP, CWE, CVE/NVD and internal documents, filtered by the user's role." },
-  { name: "Local viewer", stack: "Next.js · TypeScript", role: "Read-only dashboard of assessments, findings, evidence, audit log and reports." },
+  { name: "Terminal (TUI)", stack: "Python · Textual · Rich", role: "The primary interface. Starts assessments, edits the scope, approves actions and shows results." },
+  { name: "Backend", stack: "FastAPI · SQLAlchemy · PostgreSQL", role: "Validates every request against the Scope Manifest, applies the Risk Policy and execution limits, and records approvals and audit events." },
+  { name: "AI Service", stack: "Python · LiteLLM · LangGraph · Qdrant", role: "Reads requests, drafts scopes, classifies and correlates findings, and explains impact and remediation with retrieved knowledge." },
+  { name: "Tool Service", stack: "Kali container, over MCP", role: "Runs approved tools from validated inputs, returns normalized results, and masks sensitive output." },
+  { name: "LLM", stack: "Ollama (local) or any OpenAI-compatible endpoint", role: "Called only in steps that need language understanding, with a short context rather than raw tool output." },
+  { name: "Knowledge base", stack: "BGE-M3 embeddings · Qdrant · NVD API", role: "Hybrid search over OWASP, CWE, CVE/NVD and internal documents." },
+  { name: "Local dashboard", stack: "Next.js · TypeScript", role: "Reads the runs the terminal saved: assessments, findings, evidence and reports." },
 ];
 
 /** The DocSection titles below are linked from the docs overview card: keep `sections` in DOCS_NAV in step. */
@@ -54,7 +54,7 @@ export default function Architecture() {
         </ul>
       </DocSection>
       <DocSection title="Deployment">
-        <p>Everything except the terminal client runs under Docker Compose on your own server: Backend, AI Service, Tool Service, Qdrant, the LLM server and the local viewer. This website is served from the same host as a Next.js container.</p>
+        <p>Docker Compose runs the supporting services on your own machine: PostgreSQL, Qdrant, Ollama and the Kali tool container. The Backend, the terminal app and the local dashboard run directly on the host, and everything binds to <span className="font-mono text-sm">127.0.0.1</span> only.</p>
       </DocSection>
     </DocsLayout>
   );

@@ -13,7 +13,7 @@ export function Cta() {
           Run your next authorized assessment with Reconix.
         </h2>
         <p data-reveal className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-          Install the terminal, start the local viewer, and approve your first Scope Manifest.
+          Install the terminal, open the local dashboard, and approve your first Scope Manifest.
         </p>
         <div data-reveal className="flex flex-wrap justify-center gap-3">
           <Link href="/docs/getting-started" className={buttonVariants({ size: "lg" })}>

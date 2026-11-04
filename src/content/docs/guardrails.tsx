@@ -77,7 +77,10 @@ export const guardrails: GroupContent = {
           <p>The AI may suggest a risk level, but the backend decides. You can stop an assessment at any time.</p>
         </DocSection>
         <DocSection title="Audit">
-          <p>Every request, decision and approver lands in the audit log, which you can review in the local viewer.</p>
+          <p>
+            Every request, decision and approver lands in the audit log. Review it in the terminal with{" "}
+            <Mono>/audit</Mono>.
+          </p>
         </DocSection>
         <DocSection title="Related">
           <p>
@@ -101,13 +104,13 @@ export const guardrails: GroupContent = {
           <ul>
             <li>In the tool service, before results leave it.</li>
             <li>Before results are displayed, stored or written to a report.</li>
-            <li>Evidence in findings and in the local viewer is the masked version.</li>
+            <li>Evidence in findings and in the local dashboard is the masked version.</li>
           </ul>
         </DocSection>
         <DocSection title="Your own keys">
           <p>
-            Service keys such as <Mono>NVD_API_KEY</Mono> live in <Mono>.env</Mono>. See{" "}
-            <DocLink href="/docs/getting-started/configuration">Configuration</DocLink>.
+            Provider API keys are added in the terminal with <Mono>/provider</Mono> and stored encrypted, not in a file
+            you edit by hand. See <DocLink href="/docs/getting-started/configuration">Configuration</DocLink>.
           </p>
         </DocSection>
       </>
@@ -125,8 +128,9 @@ export const guardrails: GroupContent = {
         </DocSection>
         <DocSection title="Where the model runs">
           <p>
-            By default a local model served by vLLM, on your own server. You can point <Mono>LLM_BASE_URL</Mono> at any
-            OpenAI-compatible endpoint instead. See <DocLink href="/docs/guardrails/model-switching">Model switching</DocLink>.
+            By default a local model served by Ollama, on your own machine. You can point <Mono>LLM_BASE_URL</Mono> at
+            any OpenAI-compatible endpoint instead. See{" "}
+            <DocLink href="/docs/guardrails/model-switching">Model switching</DocLink>.
           </p>
           <Callout variant="warning">
             If you use an external endpoint, the short context for each language step is sent to that endpoint.
@@ -141,7 +145,7 @@ export const guardrails: GroupContent = {
         <DocSection title="Grounded answers">
           <ul>
             <li>Before the model explains an impact or recommends a fix, Reconix retrieves matching knowledge with hybrid search.</li>
-            <li>Internal knowledge comes first, filtered by the user&apos;s role.</li>
+            <li>Internal knowledge comes first.</li>
             <li>Missing facts are filled from the knowledge base or the NVD API, or clearly marked unknown.</li>
           </ul>
           <p>
@@ -159,8 +163,7 @@ export const guardrails: GroupContent = {
         <DocSection title="Where the model runs">
           <ul>
             <li>
-              <strong>Default:</strong> a local model served by vLLM, running as a container on your own server. A GPU is
-              recommended.
+              <strong>Default:</strong> a local model served by Ollama, running on your own machine.
             </li>
             <li>
               <strong>Alternative:</strong> any OpenAI-compatible endpoint. The AI service talks to the model through an
@@ -171,20 +174,18 @@ export const guardrails: GroupContent = {
         <DocSection title="Switch the model">
           <ol className="space-y-2 [&_li]:ml-5 [&_li]:list-decimal">
             <li>
-              Open <Mono>.env</Mono>.
+              In the terminal, add the provider with <Mono>/provider</Mono>, then pick its model with{" "}
+              <Mono>/model</Mono>. Its API key is entered there and stored encrypted.
             </li>
             <li>
-              Set <Mono>LLM_BASE_URL</Mono> to the endpoint you want. Leave the default to keep the bundled vLLM service.
+              To change the default provider instead, set <Mono>LLM_BASE_URL</Mono> and <Mono>LLM_MODEL</Mono> in{" "}
+              <Mono>apps/tui/.env</Mono>. Leave them as they are to keep the local Ollama.
             </li>
-            <li>
-              Restart the services with <Mono>docker compose up -d</Mono>.
-            </li>
+            <li>Restart the terminal app to pick up a changed file.</li>
           </ol>
-          <Code>{`# .env
-LLM_BASE_URL=https://llm.example.com/v1   # any OpenAI-compatible endpoint`}</Code>
-          <Callout variant="draft">
-            The settings for the model name and the endpoint&apos;s API key are still to document.
-          </Callout>
+          <Code>{`# apps/tui/.env
+LLM_BASE_URL=https://llm.example.com/v1   # any OpenAI-compatible endpoint
+LLM_MODEL=your-model-id`}</Code>
         </DocSection>
         <DocSection title="What switching does not change">
           <p>
@@ -215,19 +216,19 @@ LLM_BASE_URL=https://llm.example.com/v1   # any OpenAI-compatible endpoint`}</Co
           <ol className="space-y-2 [&_li]:ml-5 [&_li]:list-decimal">
             <li>A finding needs an explanation of its impact or a recommended fix.</li>
             <li>Reconix runs a hybrid search over the knowledge base: BGE-M3 embeddings stored in Qdrant.</li>
-            <li>Internal documents come first, filtered by the user&apos;s role.</li>
+            <li>Internal documents come first.</li>
             <li>Public sources fill in the rest: OWASP, CWE, CVE/NVD and advisories.</li>
             <li>The model answers from what was retrieved. Facts it cannot find are marked unknown, never guessed.</li>
           </ol>
         </DocSection>
         <DocSection title="Your own documents">
           <p>
-            Internal documents live in the same knowledge base as the public sources and rank ahead of them, so explanations
-            and fixes follow your organization&apos;s own guidance. Retrieval is filtered by role: a user only gets passages
-            from documents their role allows.
+            Internal documents live in the same knowledge base as the public sources and rank ahead of them, so
+            explanations and fixes follow your organization&apos;s own guidance. Add reference files in the terminal with{" "}
+            <Mono>/add-on</Mono>.
           </p>
           <Callout variant="draft">
-            How to add, update and remove documents, the supported formats and how roles are assigned are still to document.
+            How to update and remove documents, and the supported formats, are still to document.
           </Callout>
         </DocSection>
         <DocSection title="Retrieved text is data">
@@ -238,8 +239,7 @@ LLM_BASE_URL=https://llm.example.com/v1   # any OpenAI-compatible endpoint`}</Co
         </DocSection>
         <DocSection title="CVE lookups">
           <p>
-            CVE details come from the NVD API. Set <Mono>NVD_API_KEY</Mono> in <Mono>.env</Mono> to raise the rate limit. See{" "}
-            <DocLink href="/docs/getting-started/configuration">Configuration</DocLink>.
+            CVE details come from the NVD API.
           </p>
         </DocSection>
         <DocSection title="Related">
@@ -259,16 +259,14 @@ LLM_BASE_URL=https://llm.example.com/v1   # any OpenAI-compatible endpoint`}</Co
         <DocSection title="Known limitations">
           <ul>
             <li>
-              Findings generated with AI can be wrong. Classifications with confidence below 0.80 are marked{" "}
-              <Mono>NEEDS_REVIEW</Mono> for a person to check.
+              Findings generated with AI can be wrong. A finding that has not been validated stays{" "}
+              <strong>Needs review</strong> until a person confirms it.
             </li>
-            <li>
-              Severity is never guessed. Without a scanner rating or a CVSS score, a finding is marked <Mono>UNKNOWN</Mono>.
-            </li>
+            <li>Severity is never guessed: it comes from the scanner or a CVSS score.</li>
             <li>Reconix supports predefined tasks. Requests outside those tasks, or outside the approved scope, are refused.</li>
           </ul>
           <p>
-            More on severity and confidence in <DocLink href="/docs/reference/findings">Findings</DocLink>.
+            More on severity and review state in <DocLink href="/docs/reference/findings">Findings</DocLink>.
           </p>
         </DocSection>
       </>

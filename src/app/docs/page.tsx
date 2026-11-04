@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Rocket } from "lucide-react";
 import { DocGroupCards } from "@/components/docs-cards";
-import { Callout, DocLink, DocsLayout, DocSection } from "@/components/docs-layout";
+import { Callout, DocLink, DocsLayout, DocumentationNotice, DocSection } from "@/components/docs-layout";
 import { DOCS_NAV } from "@/lib/docs-nav";
 
 export const metadata = { title: "Documentation · Reconix" };
@@ -16,6 +16,11 @@ const TEMPLATES = [
 export default function DocsHome() {
   return (
     <DocsLayout href="/docs" title="Documentation" lede="What Reconix is, what it expects from you, and where to go next.">
+      <DocumentationNotice title="Documentation Under Review">
+        Some documentation is still being reviewed and updated as Reconix development progresses. Certain instructions,
+        configurations, and technical details may change. Please treat the current content as a preliminary reference.
+      </DocumentationNotice>
+
       <Link
         href="/docs/getting-started/first-assessment"
         className="group flex items-center gap-4 rounded-2xl border border-primary/40 bg-primary/5 p-5 transition-colors hover:border-primary"
@@ -36,6 +41,10 @@ export default function DocsHome() {
           Reconix is an AI-powered terminal assistant for authorized security assessments. It plans tasks, uses approved
           tools within a scope you sign off on, analyzes the results, retrieves trusted security knowledge, and suggests next
           steps.
+        </p>
+        <p>
+          You can start an assessment by describing it in plain language: Reconix reads the target out of your sentence
+          and picks the matching template. See <DocLink href="/docs/interfaces/terminal">Terminal</DocLink>.
         </p>
         <p>
           It is built for two kinds of users: developers checking their own code and services, and security teams running
