@@ -68,9 +68,7 @@ export const interfaces: GroupContent = {
           </ul>
         </DocSection>
         <DocSection title="Start it">
-          <Code>{`cd apps/tui
-source .venv/bin/activate
-python -m reconix`}</Code>
+          <Code>{`reconix`}</Code>
           <p>
             Installation is in <DocLink href="/docs/getting-started/installation">Installation</DocLink>.
           </p>

@@ -37,11 +37,11 @@ export const DOCS_NAV: DocGroup[] = [
     id: "getting-started",
     title: "Getting started",
     href: "/docs/getting-started",
-    description: "Install the terminal app, add a model, then run your first assessment.",
+    description: "Install Reconix, add a model, then run your first assessment.",
     icon: Rocket,
     pages: [
       { title: "Requirements", href: "/docs/getting-started/requirements", description: "What you need before installing." },
-      { title: "Installation", href: "/docs/getting-started/installation", description: "Install the terminal app and add a model." },
+      { title: "Installation", href: "/docs/getting-started/installation", description: "Install Reconix and add a model." },
       { title: "Configuration", href: "/docs/getting-started/configuration", description: "The main settings in .env." },
       { title: "First assessment", href: "/docs/getting-started/first-assessment", description: "From request to report, step by step." },
     ],

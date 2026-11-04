@@ -30,21 +30,26 @@ export const gettingStarted: GroupContent = {
     ),
   },
   installation: {
-    lede: "Install the terminal app in its own virtual environment, then start it.",
+    lede: "One command sets up Reconix and everything it needs to run.",
     notice: "Setup instructions are currently under review and may not fully reflect the latest implementation.",
     body: (
       <>
-        <DocSection title="Install the terminal app">
-          <p>Clone the repository and install the terminal app. Replace the repository URL with your team&apos;s.</p>
-          <Code>{`git clone <your-reconix-repo> reconix
-cd reconix/apps/tui
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python -m reconix`}</Code>
+        <DocSection title="Install Reconix">
+          <p>
+            <strong>Linux and macOS</strong>
+          </p>
+          <Code>{`curl -fsSL https://reconix.com/install.sh | bash`}</Code>
+          <p>
+            <strong>Windows (PowerShell)</strong>
+          </p>
+          <Code>{`irm https://reconix.com/install.ps1 | iex`}</Code>
+          <p>
+            The installer sets up Reconix and the resources it needs: the supporting services, the Kali tool container
+            and the <Mono>reconix</Mono> command itself. Once it finishes, start Reconix with <Mono>reconix</Mono>.
+          </p>
           <Callout>
-            Keep the virtual environment at <Mono>apps/tui/.venv</Mono>: the local dashboard looks for that Python
-            first.
+            Both commands pipe a script from the network into your shell. Open{" "}
+            <Mono>https://reconix.com/install.sh</Mono> in a browser and read it first if your policy requires it.
           </Callout>
         </DocSection>
         <DocSection title="Add a model">
@@ -108,7 +113,7 @@ python -m reconix`}</Code>
         <DocSection title="Run it">
           <ol className="space-y-2 [&_li]:ml-5 [&_li]:list-decimal">
             <li>
-              Start the terminal app with <Mono>python -m reconix</Mono>.
+              Start Reconix with <Mono>reconix</Mono>.
             </li>
             <li>
               Describe what you want assessed in plain language: Reconix reads the target out of your sentence and

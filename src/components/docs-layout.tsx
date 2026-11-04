@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ChevronRight, Info, PencilLine, TriangleAlert } from "lucide-react";
+import { CopyButton } from "@/components/copy-button";
 import { DocsSidebar } from "@/components/docs-sidebar";
 import { Badge } from "@/components/ui/badge";
 import { DocsToc } from "@/components/docs-toc";
@@ -131,9 +132,13 @@ export function DocSection({ title, children }: { title: string; children: React
 
 export function Code({ children }: { children: string }) {
   return (
-    <pre className="overflow-x-auto rounded-lg border border-border bg-card p-4 font-mono text-[13px] leading-relaxed text-foreground">
-      <code>{children}</code>
-    </pre>
+    <div className="relative">
+      {/* pr-14 keeps long lines from scrolling under the copy button */}
+      <pre className="overflow-x-auto rounded-lg border border-border bg-card p-4 pr-14 font-mono text-[13px] leading-relaxed text-foreground">
+        <code>{children}</code>
+      </pre>
+      <CopyButton value={children} className="absolute right-2 top-2" />
+    </div>
   );
 }
 
