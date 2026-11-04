@@ -47,10 +47,6 @@ export const gettingStarted: GroupContent = {
             The installer sets up Reconix and the resources it needs: the supporting services, the Kali tool container
             and the <Mono>reconix</Mono> command itself. Once it finishes, start Reconix with <Mono>reconix</Mono>.
           </p>
-          <Callout>
-            Both commands pipe a script from the network into your shell. Open{" "}
-            <Mono>https://reconix.com/install.sh</Mono> in a browser and read it first if your policy requires it.
-          </Callout>
         </DocSection>
         <DocSection title="Add a model">
           <p>
