@@ -9,6 +9,7 @@ export const SITE_DESCRIPTION =
   "An AI-powered terminal assistant that plans authorized security assessments, keeps every action inside an approved scope, and turns tool results into clear findings and reports.";
 
 export const SITE_REPO_URL = "https://github.com/14th-Generation-Advanced-Course";
+export const SITE_ISSUES_URL = "https://github.com/14th-Generation-Advanced-Course/reconix-core-backend/issues";
 
 export const SITE_NAME_MEANING: string | undefined = undefined;
 /** true once the tool repository is public under an open-source license (changes the footer's copyright line). */

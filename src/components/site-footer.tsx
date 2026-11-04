@@ -3,7 +3,7 @@ import { CircleDot, ExternalLink, Link2, type LucideIcon } from "lucide-react";
 import { siGithub } from "simple-icons";
 import { NAV_MENUS, type NavMenu } from "@/components/nav-data";
 import { DOCS_NAV } from "@/lib/docs-nav";
-import { SITE_COMMUNITY, SITE_NAME_MEANING, SITE_OPEN_SOURCE, SITE_REPO_URL, SITE_TAGLINE } from "@/lib/site";
+import { SITE_COMMUNITY, SITE_ISSUES_URL, SITE_NAME_MEANING, SITE_OPEN_SOURCE, SITE_REPO_URL, SITE_TAGLINE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type FooterLink = { label: string; href: string; external?: boolean; icon?: LucideIcon };
@@ -22,7 +22,7 @@ const DOCS: FooterLink[] = DOCS_NAV.filter((g) => g.id !== "guardrails").map((g)
 const GUARDRAILS: FooterLink[] = menu("guardrails").items.map((i) => ({ label: i.label, href: i.href }));
 const COMMUNITY: FooterLink[] = [
   { label: "GitHub", href: SITE_REPO_URL, external: true },
-  { label: "Issues", href: `${SITE_REPO_URL}/issues`, external: true, icon: CircleDot },
+  { label: "Issues", href: SITE_ISSUES_URL, external: true, icon: CircleDot },
   ...SITE_COMMUNITY.map((c) => ({ ...c, external: !c.href.startsWith("mailto:") })),
 ];
 const COLUMNS = [
