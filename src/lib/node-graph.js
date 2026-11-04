@@ -7,7 +7,7 @@ const HUBS = [
   { id: "ai", label: "AI Service", x: 0.8, y: 0.34 },
   { id: "tools", label: "Tool Service", x: 0.24, y: 0.74 },
   { id: "knowledge", label: "Knowledge", x: 0.8, y: 0.7 },
-  { id: "viewer", label: "Local Viewer", x: 0.52, y: 0.84 },
+  { id: "viewer", label: "Local Dashboard", x: 0.52, y: 0.84 },
 ];
 
 const LEAVES = [
@@ -24,7 +24,7 @@ const LEAVES = [
   { hub: "ai", label: "classify", sub: "CWE · confidence" },
   { hub: "ai", label: "correlate" },
   { hub: "ai", label: "severity", sub: "CVSS" },
-  { hub: "ai", label: "vLLM", sub: "local LLM" },
+  { hub: "ai", label: "Ollama", sub: "local LLM" },
   // tools
   { hub: "tools", label: "Nmap", sub: "network" },
   { hub: "tools", label: "Nuclei", sub: "templates" },

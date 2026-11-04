@@ -37,11 +37,11 @@ export const DOCS_NAV: DocGroup[] = [
     id: "getting-started",
     title: "Getting started",
     href: "/docs/getting-started",
-    description: "Install the services and the terminal, then run your first assessment.",
+    description: "Install Reconix, add a model, then run your first assessment.",
     icon: Rocket,
     pages: [
       { title: "Requirements", href: "/docs/getting-started/requirements", description: "What you need before installing." },
-      { title: "Installation", href: "/docs/getting-started/installation", description: "Start the services and install the terminal client." },
+      { title: "Installation", href: "/docs/getting-started/installation", description: "Install Reconix and add a model." },
       { title: "Configuration", href: "/docs/getting-started/configuration", description: "The main settings in .env." },
       { title: "First assessment", href: "/docs/getting-started/first-assessment", description: "From request to report, step by step." },
     ],
@@ -61,12 +61,12 @@ export const DOCS_NAV: DocGroup[] = [
     id: "interfaces",
     title: "Interfaces",
     href: "/docs/interfaces",
-    description: "The terminal you work in, the VS Code extension and the read-only viewer.",
+    description: "The terminal you work in, the VS Code extension and the local dashboard.",
     icon: SquareTerminal,
     pages: [
       { title: "Terminal", href: "/docs/interfaces/terminal", description: "Start assessments, edit the scope and approve actions." },
       { title: "VS Code extension", href: "/docs/interfaces/vscode-extension", description: "Work with Reconix from inside your editor." },
-      { title: "Local assessment viewer", href: "/docs/interfaces/local-viewer", description: "Browse findings, evidence, the audit log and reports." },
+      { title: "Local dashboard", href: "/docs/interfaces/local-viewer", description: "Browse findings, evidence and reports." },
     ],
   },
   {
@@ -113,7 +113,7 @@ export const DOCS_NAV: DocGroup[] = [
     description: "The findings format and reports.",
     icon: BookMarked,
     pages: [
-      { title: "Findings", href: "/docs/reference/findings", description: "Severity, confidence and evidence." },
+      { title: "Findings", href: "/docs/reference/findings", description: "Severity, review state and evidence." },
       { title: "Reports", href: "/docs/reference/reports", description: "What a report contains and how to export it." },
     ],
   },

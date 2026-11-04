@@ -8,17 +8,16 @@ export const gettingStarted: GroupContent = {
       <>
         <DocSection title="Software">
           <ul>
-            <li>Docker and Docker Compose. The backend, AI service, tool service, Qdrant and the LLM run as containers.</li>
-            <li>Python 3.11 or later for the terminal client.</li>
+            <li>Python 3.9 or later for the terminal app.</li>
+            <li>Node.js 20 or later, only if you want the local dashboard.</li>
           </ul>
         </DocSection>
-        <DocSection title="Hardware">
-          <ul>
-            <li>
-              A GPU is recommended for the local LLM served by vLLM. You can point the AI service at any OpenAI-compatible
-              endpoint instead.
-            </li>
-          </ul>
+        <DocSection title="Model access">
+          <p>
+            An OpenAI-compatible endpoint for the steps that need language understanding. A local Ollama server is
+            the default; any OpenAI-compatible endpoint works. You add the provider and pick the model inside the
+            terminal, not in a file. See <DocLink href="/docs/guardrails/model-switching">Model switching</DocLink>.
+          </p>
         </DocSection>
         <DocSection title="Authorization">
           <p>Written authorization for every target you plan to assess.</p>
@@ -31,19 +30,29 @@ export const gettingStarted: GroupContent = {
     ),
   },
   installation: {
-    lede: "Start the services with Docker Compose, then install the terminal client.",
+    lede: "One command sets up Reconix and everything it needs to run.",
+    notice: "Setup instructions are currently under review and may not fully reflect the latest implementation.",
     body: (
       <>
-        <DocSection title="Start the services">
-          <p>Clone the repository and start the services. Replace the repository URL with your team&apos;s.</p>
-          <Code>{`git clone <your-reconix-repo> reconix
-cd reconix
-cp .env.example .env
-docker compose up -d`}</Code>
+        <DocSection title="Install Reconix">
+          <p>
+            <strong>Linux and macOS</strong>
+          </p>
+          <Code>{`curl -fsSL https://reconix.com/install.sh | bash`}</Code>
+          <p>
+            <strong>Windows (PowerShell)</strong>
+          </p>
+          <Code>{`irm https://reconix.com/install.ps1 | iex`}</Code>
+          <p>
+            The installer sets up Reconix and the resources it needs: the supporting services, the Kali tool container
+            and the <Mono>reconix</Mono> command itself. Once it finishes, start Reconix with <Mono>reconix</Mono>.
+          </p>
         </DocSection>
-        <DocSection title="Install the terminal client">
-          <Code>{`pip install -e ./terminal
-reconix --help`}</Code>
+        <DocSection title="Add a model">
+          <p>
+            In the terminal, add a provider with <Mono>/provider</Mono> and pick its model with <Mono>/model</Mono>.
+            API keys are stored encrypted, never in a file you edit by hand.
+          </p>
         </DocSection>
         <DocSection title="Next steps">
           <p>
@@ -55,26 +64,38 @@ reconix --help`}</Code>
     ),
   },
   configuration: {
-    lede: "The main settings live in .env.",
+    lede: "The terminal app reads its settings from apps/tui/.env.",
+    notice: "Configuration details are subject to change as development progresses.",
     body: (
       <>
         <DocSection title="Environment settings">
+          <p>
+            Copy the example file and edit it: <Mono>cp .env.example .env</Mono> in <Mono>apps/tui</Mono>.
+          </p>
           <ul>
             <li>
-              <Mono>LLM_BASE_URL</Mono>: the OpenAI-compatible endpoint (default: the bundled vLLM service).
+              <Mono>LLM_BASE_URL</Mono>: the OpenAI-compatible endpoint, ending in <Mono>/v1</Mono> for most servers.
+              Defaults to <Mono>http://localhost:11434/v1</Mono>, a local Ollama.
             </li>
             <li>
-              <Mono>NVD_API_KEY</Mono>: optional, raises the rate limit for CVE lookups.
+              <Mono>LLM_MODEL</Mono>: the model id to use.
             </li>
             <li>
-              <Mono>RISK_POLICY</Mono>: path to the Risk Policy Table that decides which actions need approval.
+              <Mono>LLM_TIMEOUT</Mono>: per-request timeout, in seconds.
             </li>
-            <li>Execution limits: maximum tool calls, iterations and run time per assessment.</li>
+            <li>
+              <Mono>HARNESS_DB_PATH</Mono>: the local database of targets, scans and findings. Defaults to{" "}
+              <Mono>~/.reconix/harness.db</Mono>.
+            </li>
           </ul>
+          <Callout>
+            Provider API keys do not live in this file. Add them in the terminal with <Mono>/provider</Mono>: they are
+            encrypted with the key in <Mono>LLM_KEY_FILE</Mono>.
+          </Callout>
         </DocSection>
         <DocSection title="Going further">
           <p>
-            Templates, the Scope Manifest, policies and credentials are covered in{" "}
+            Templates, the Scope Manifest and the risk policies are covered in{" "}
             <DocLink href="/docs/configuration">Configuration</DocLink>.
           </p>
         </DocSection>
@@ -88,23 +109,34 @@ reconix --help`}</Code>
         <DocSection title="Run it">
           <ol className="space-y-2 [&_li]:ml-5 [&_li]:list-decimal">
             <li>
-              Start the terminal with <Mono>reconix</Mono>.
+              Start Reconix with <Mono>reconix</Mono>.
             </li>
             <li>
-              Describe the task in plain language, or type <Mono>/template</Mono> to pick Network, API, Source Code or Web URL.
+              Describe what you want assessed in plain language: Reconix reads the target out of your sentence and
+              picks the matching template. Or type <Mono>/new</Mono>, or <Mono>/template</Mono> to choose Network, API,
+              Source Code or Web URL yourself.
             </li>
             <li>Answer the questions Reconix asks and review the draft Scope Manifest.</li>
             <li>
-              <strong>Approve the scope.</strong> Nothing runs before this step.
+              <strong>Approve the scope</strong> at the approval gate (<Mono>/approval</Mono>). Nothing runs before this
+              step.
             </li>
-            <li>Approve any medium- or high-risk action when prompted, or stop the assessment at any time.</li>
-            <li>Generate the report when the analysis is complete.</li>
+            <li>
+              Follow the run with <Mono>/status</Mono>, and approve any medium- or high-risk action when prompted. You
+              can stop an assessment at any time.
+            </li>
+            <li>
+              Read the results with <Mono>/findings</Mono>, then <Mono>/report</Mono> and <Mono>/export</Mono> for PDF,
+              JSON or DOCX.
+            </li>
           </ol>
         </DocSection>
         <DocSection title="Review the results">
           <p>
-            Browse findings, masked evidence, the audit log and the report in the{" "}
-            <DocLink href="/docs/interfaces/local-viewer">Local assessment viewer</DocLink>. The full flow is in{" "}
+            Type <Mono>/web</Mono> to open the{" "}
+            <DocLink href="/docs/interfaces/local-viewer">local dashboard</DocLink>, which shows the findings, their
+            masked evidence and the report. The activity log and audit trail are in the terminal, under{" "}
+            <Mono>/audit</Mono>. The full flow is in{" "}
             <DocLink href="/docs/assessments/workflow">Assessment workflow</DocLink>.
           </p>
         </DocSection>
