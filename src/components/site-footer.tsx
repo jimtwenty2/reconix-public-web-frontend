@@ -4,7 +4,6 @@ import { siGithub } from "simple-icons";
 import { NAV_MENUS, type NavMenu } from "@/components/nav-data";
 import { DOCS_NAV } from "@/lib/docs-nav";
 import { SITE_COMMUNITY, SITE_NAME_MEANING, SITE_OPEN_SOURCE, SITE_REPO_URL, SITE_TAGLINE } from "@/lib/site";
-import { ReconixWordmark } from "@/components/reconix-wordmark";
 import { cn } from "@/lib/utils";
 
 type FooterLink = { label: string; href: string; external?: boolean; icon?: LucideIcon };
@@ -75,8 +74,10 @@ export function SiteFooter() {
       <span aria-hidden className="footer-edge" />
       <div className="mx-auto grid max-w-6xl gap-12 px-4 pb-12 pt-14 sm:px-6 lg:grid-cols-[1.35fr_2.65fr] lg:gap-16">
         <div className="max-w-sm">
-          <Link href="/" className={cn(linkClass, "inline-block")}>
-            <ReconixWordmark label="Reconix" className="w-[124px]" />
+          <Link href="/" className={cn(linkClass, "inline-block font-mono text-lg tracking-tight")}>
+            <span className="text-muted-foreground">&lt;</span>
+            <span className="font-semibold text-foreground">reconix</span>
+            <span className="text-muted-foreground"> /&gt;</span>
           </Link>
           <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.18em] text-primary">
             {SITE_NAME_MEANING ?? SITE_TAGLINE}
